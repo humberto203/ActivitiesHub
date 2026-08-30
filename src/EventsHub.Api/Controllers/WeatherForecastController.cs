@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace EventsHub.Api.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class WeatherForecastController : EventsHubBaseController
 {
-    private static readonly string[] Summaries =
-    [
+    private static readonly string[] Summaries = new[]
+    {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    ];
+    };
 
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
