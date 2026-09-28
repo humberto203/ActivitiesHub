@@ -1,42 +1,55 @@
 using Microsoft.EntityFrameworkCore;
 using EventsHub.Domain;
 using EventsHub.Persistence;
-var builder = WebApplication.CreateBuilder(args);
+using EventsHub.Application.Events.Queries;
+using EventsHub.Application.Core;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-builder.Services.AddDbContext<AppDbContext>(opt =>
+public partial class Program
 {
-   opt .UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")); 
-});
-builder.Services.AddCors();
+    private static async Task Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+        // Add services to the container.
 
-// Configure the HTTP request pipeline.
-app.UseCors(opt => opt
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .WithOrigins("http://localhost:3000","https://localhost:3000"));
+        builder.Services.AddControllers();
+        builder.Services.AddDbContext<AppDbContext>(opt =>
+        {
+            opt.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection"));
+        });
+        builder.Services.AddCors();
+        builder.Services.AddMediatR(opt =>
+            opt.RegisterServicesFromAssemblyContaining<GetEventList.Handler>()
+        );
+        builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
-if (app.Environment.IsDevelopment()){}
+        var app = builder.Build();
 
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
+        // Configure the HTTP request pipeline.
+        app.UseCors(opt => opt
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:3000", "https://localhost:3000"));
 
-try
-{
-    var context = services.GetRequiredService<AppDbContext>();
-    await context.Database.MigrateAsync();
-    await DbInitializer.SeedDataAsync(context);
+        if (app.Environment.IsDevelopment()) { }
+
+        using var scope = app.Services.CreateScope();
+        var services = scope.ServiceProvider;
+
+        try
+        {
+            var context = services.GetRequiredService<AppDbContext>();
+            await context.Database.MigrateAsync();
+            await DbInitializer.SeedDataAsync(context);
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error ocurred during database migration.");
+        }
+
+        app.MapControllers();
+
+        app.Run();
+    }
 }
-catch(Exception ex)
-{
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error ocurred during database migration.");
-}
-
-app.MapControllers();
-
-app.Run();
