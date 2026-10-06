@@ -1,6 +1,7 @@
-import { Fragment, useEffect, useState } from "react";
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { CssBaseline, List, ListItem, ListItemText } from "@mui/material";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 // Interfaz para definir el tipo de datos que viene de tu API
 interface Activity {
@@ -14,11 +15,14 @@ function App() {
   useEffect(() => {
     axios.get<Activity[]>('https://localhost:5001/api/v1/events')
       .then(response => setActivities(response.data));
+
+    return () => { };
   }, []);
 
   return (
-    <Fragment>
-      <Typography variant="h3">Events Hub</Typography>
+    <>
+      <CssBaseline/>
+      <NavBar />
       <List>
         {activities.map((activity: Activity) => (
           <ListItem key={activity.id}>
@@ -26,7 +30,7 @@ function App() {
           </ListItem>
         ))}
       </List>
-    </Fragment>
+    </>
   );
 }
 
