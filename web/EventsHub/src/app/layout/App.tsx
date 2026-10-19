@@ -1,16 +1,11 @@
+import { Box, Container, CssBaseline } from "@mui/material";
 import { useEffect, useState } from "react";
-import { CssBaseline, List, ListItem, ListItemText } from "@mui/material";
-import axios from "axios";
 import NavBar from "./NavBar";
-
-// Interfaz para definir el tipo de datos que viene de tu API
-interface Activity {
-  id: string;
-  title: string;
-}
+import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 
 function App() {
   const [activities, setActivities] = useState<Activity[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
 
   useEffect(() => {
     axios.get<Activity[]>('https://localhost:5001/api/v1/events')
@@ -19,19 +14,26 @@ function App() {
     return () => { };
   }, []);
 
+  const handleSelectActivity = (id: string) => {
+    setSelectedActivity(activities.find(act => act.id === id));
+  }
+
+  const handleCancelSelectActivity = () => {
+    setSelectedActivity(undefined);
+  }
+
   return (
-    <>
-      <CssBaseline/>
+    <Box sx={{ bgcolor: '#eeeeee' }}>
+      <CssBaseline />
       <NavBar />
-      <List>
-        {activities.map((activity: Activity) => (
-          <ListItem key={activity.id}>
-            <ListItemText>{activity.title}</ListItemText>
-          </ListItem>
-        ))}
-      </List>
-    </>
+      <Container maxWidth="xl" sx={{ mt: 3 }}>
+        <ActivityDashboard 
+          activities={activities}
+          selectActivity={handleSelectActivity}
+          cancelSelectActivity={handleCancelSelectActivity}
+          selectedActivity={selectedActivity} 
+        />
+      </Container>
+    </Box>
   );
 }
-
-export default App;
