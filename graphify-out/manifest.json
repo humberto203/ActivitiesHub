@@ -234,15 +234,15 @@
     "semantic_hash": ""
   },
   "web/EventsHub/src/app/layout/App.tsx": {
-    "mtime": 1792376190.7696245,
-    "seen": 1792376324.894203,
-    "ast_hash": "4a46d8d3b081866ab77429c091702839",
+    "mtime": 1792550287.3703928,
+    "seen": 1792551076.315053,
+    "ast_hash": "40b652047eec28c7f03fba03163558d8",
     "semantic_hash": ""
   },
   "web/EventsHub/src/app/layout/NavBar.tsx": {
-    "mtime": 1791424443.147145,
-    "seen": 1792376324.894204,
-    "ast_hash": "9e4aa0f0509b1c77ac29d850d89c3f21",
+    "mtime": 1792514054.0672529,
+    "seen": 1792551076.3150542,
+    "ast_hash": "6dbbbd72c1538d2011ff6b4e3480c600",
     "semantic_hash": ""
   },
   "web/EventsHub/src/lib/index.d.ts": {
@@ -498,27 +498,27 @@
     "semantic_hash": ""
   },
   "web/EventsHub/src/features/activities/dashboard/ActivityCard.tsx": {
-    "mtime": 1792376055.9028442,
-    "seen": 1792376324.8942049,
-    "ast_hash": "c196059aee31bf40e1d36634fd962156",
+    "mtime": 1792550288.59077,
+    "seen": 1792551076.3150551,
+    "ast_hash": "85493cd407b44efe5480f90d27cf829e",
     "semantic_hash": ""
   },
   "web/EventsHub/src/features/activities/dashboard/ActivityDashboard.tsx": {
-    "mtime": 1792376184.3398385,
-    "seen": 1792376324.8942049,
-    "ast_hash": "94e7de0011e82a34d49ab6dabe44cb8d",
+    "mtime": 1792550285.9020193,
+    "seen": 1792551076.3150551,
+    "ast_hash": "cd9acbf9ea2740a51c752b48c19a241a",
     "semantic_hash": ""
   },
   "web/EventsHub/src/features/activities/dashboard/ActivityList.tsx": {
-    "mtime": 1792375992.913276,
-    "seen": 1792376324.894206,
-    "ast_hash": "cd2347b7c5f7d71dbe467727e4980e44",
+    "mtime": 1792550283.9499104,
+    "seen": 1792551076.315056,
+    "ast_hash": "cc05d83c380e48d94d66f504ac1fe8ab",
     "semantic_hash": ""
   },
   "web/EventsHub/src/features/activities/details/ActivityDetail.tsx": {
-    "mtime": 1792375899.9279788,
-    "seen": 1792376324.894207,
-    "ast_hash": "86ed2ed9ff1b5a227b315202dd0e0aab",
+    "mtime": 1792378237.246169,
+    "seen": 1792551076.315056,
+    "ast_hash": "bb1b9859af75106a6488697e4c5625a3",
     "semantic_hash": ""
   },
   "web/EventsHub/public/images/categoryImages/culture.jpg": {
@@ -555,6 +555,18 @@
     "mtime": 1791741017.3020654,
     "seen": 1792376324.894233,
     "ast_hash": "399fc9c8eec263f231d216d6f89dfad0",
+    "semantic_hash": ""
+  },
+  "web/EventsHub/src/features/activities/form/ActivityForm.tsx": {
+    "mtime": 1792549306.1993427,
+    "seen": 1792551076.3150568,
+    "ast_hash": "2a71baa2f27126615da7e6ae6f0af141",
+    "semantic_hash": ""
+  },
+  "docs/guides/husky-setup.md": {
+    "mtime": 1792551075.0789504,
+    "seen": 1792551076.3150709,
+    "ast_hash": "0352d4a289366b543e800ad881bad1f3",
     "semantic_hash": ""
   }
 }

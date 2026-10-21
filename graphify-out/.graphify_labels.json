@@ -1,7 +1,7 @@
 {
   "0": "package.json",
   "1": "devDependencies",
-  "2": "App.tsx",
+  "2": "ActivityDashboard.tsx",
   "3": ".claude/skills/openspec-explore/SKILL.md",
   "4": ".gemini/skills/openspec-explore/SKILL.md",
   "5": "explore.md",
@@ -22,5 +22,9 @@
   "20": ".gemini/skills/openspec-propose/SKILL.md",
   "21": ".gemini/skills/openspec-sync-specs/SKILL.md",
   "22": ".gemini/skills/openspec-update-change/SKILL.md",
-  "23": "ref_app_layout_index_css"
+  "23": "ref_app_layout_index_css",
+  "24": "Part 2: .NET only (Husky.Net)",
+  "25": "Part 1: .NET + npm in the same repo (e.g. EventsHub)",
+  "26": "Part 3: npm only, `package.json` in the repo root (Husky v9)",
+  "27": "Part 4: npm only, `package.json` in a subfolder (Husky v9)"
 }
