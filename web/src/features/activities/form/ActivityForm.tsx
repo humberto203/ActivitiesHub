@@ -1,15 +1,7 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { useActivities } from '../../../lib/hooks/useActivities'
 
-type Props = {
-  activity?: Activity
-  closeForm: () => void
-}
-
-export default function ActivityForm({
-  activity,
-  closeForm,
-}: Props) {
+export default function ActivityForm() {
   const { updateActivity, createActivity } = useActivities()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -22,14 +14,8 @@ export default function ActivityForm({
     })
     console.log(data)
 
-    if (activity) {
-      data.id = activity.id
-      await updateActivity.mutateAsync(data as unknown as Activity)
-    } else {
-      await createActivity.mutateAsync(data as unknown as Activity)
-    }
-
-    closeForm()
+    // Lógica temporal o adaptada para rutas
+    await createActivity.mutateAsync(data as unknown as Activity)
   }
 
   return (
@@ -42,33 +28,27 @@ export default function ActivityForm({
         onSubmit={handleSubmit}
         sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
       >
-        <TextField name="title" label="Title" defaultValue={activity?.title} />
+        <TextField name="title" label="Title" />
         <TextField
           name="description"
           label="Description"
-          defaultValue={activity?.description}
           multiline
           rows={3}
         />
         <TextField
           name="category"
           label="Category"
-          defaultValue={activity?.category}
         />
         <TextField
           name="date"
           label="Date"
           type="date"
-          defaultValue={
-            activity?.date
-              ? new Date(activity.date).toISOString().split('T')[0]
-              : new Date().toISOString().split('T')[0]
-          }
+          defaultValue={new Date().toISOString().split('T')[0]}
         />
-        <TextField name="city" label="City" defaultValue={activity?.city} />
-        <TextField name="venue" label="Venue" defaultValue={activity?.venue} />
+        <TextField name="city" label="City" />
+        <TextField name="venue" label="Venue" />
         <Box sx={{ display: 'flex', justifyContent: 'end', gap: 3 }}>
-          <Button onClick={closeForm} color="inherit">
+          <Button color="inherit">
             Cancel
           </Button>
           <Button

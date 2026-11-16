@@ -4,49 +4,57 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
   Container,
   MenuItem,
   MenuList,
 } from '@mui/material'
+import { NavLink } from 'react-router'
 
-type Props = {
-  openForm: () => void
-}
-
-export default function NavBar({ openForm }: Props) {
+export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Container>
+        <Container maxWidth="xl">
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-              <Group fontSize="large" />
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                Activities
-              </Typography>
-            </Box>
-
-            <MenuList disablePadding sx={{ display: 'flex' }}>
-              <MenuItem sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}>
-                Activities
-              </MenuItem>
-              <MenuItem sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}>
-                About
-              </MenuItem>
-              <MenuItem sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}>
-                Contact
+            <MenuList>
+              <MenuItem
+                component={NavLink}
+                to="/"
+                sx={{ display: 'flex', gap: 2 }}
+              >
+                <Group fontSize="large" />
+                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                  Activities
+                </Typography>
               </MenuItem>
             </MenuList>
 
-            <Button
-              onClick={openForm}
-              size="large"
-              variant="contained"
-              color="warning"
-            >
-              Create activity
-            </Button>
+            <MenuList disablePadding sx={{ display: 'flex' }}>
+              <MenuItem
+                component={NavLink}
+                to="/activities"
+                sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}
+              >
+                Activities
+              </MenuItem>
+              <MenuItem
+                sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}
+              >
+                About
+              </MenuItem>
+              <MenuItem
+                sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}
+              >
+                Contact
+              </MenuItem>
+              <MenuItem
+                component={NavLink}
+                to="/createActivity"
+                sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}
+              >
+                Create activity
+              </MenuItem>
+            </MenuList>
           </Toolbar>
         </Container>
       </AppBar>
