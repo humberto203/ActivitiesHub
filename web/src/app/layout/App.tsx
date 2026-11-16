@@ -2,8 +2,7 @@ import { Box, Container, CssBaseline, Typography } from '@mui/material'
 import { useState } from 'react'
 import NavBar from './NavBar'
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard'
-import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
+import { useActivities } from '../../lib/hooks/useActivities'
 
 export default function App() {
   const [selectedActivity, setSelectedActivity] = useState<
@@ -13,15 +12,7 @@ export default function App() {
   // Nuevo estado para controlar si el formulario está abierto o cerrado
   const [editMode, setEditMode] = useState(false)
 
-  const { data: activities, isPending } = useQuery({
-    queryKey: ['activities'],
-    queryFn: async () => {
-      const response = await axios.get<Activity[]>(
-        'https://localhost:5001/api/v1/events',
-      )
-      return response.data
-    },
-  })
+  const { activities, isPending } = useActivities()
 
   const handleSelectActivity = (id: string) => {
     setSelectedActivity(activities!.find((act) => act.id === id))
