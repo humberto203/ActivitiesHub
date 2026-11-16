@@ -1,17 +1,18 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
+import { useActivities } from '../../../lib/hooks/useActivities'
 
 type Props = {
   activity?: Activity
   closeForm: () => void
-  submitForm: (activity: Activity) => void
 }
 
 export default function ActivityForm({
   activity,
   closeForm,
-  submitForm,
 }: Props) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const { updateActivity, createActivity } = useActivities()
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
@@ -21,9 +22,14 @@ export default function ActivityForm({
     })
     console.log(data)
 
-    if (activity) data.id = activity.id
+    if (activity) {
+      data.id = activity.id
+      await updateActivity.mutateAsync(data as unknown as Activity)
+    } else {
+      await createActivity.mutateAsync(data as unknown as Activity)
+    }
 
-    submitForm(data as unknown as Activity)
+    closeForm()
   }
 
   return (
@@ -52,8 +58,12 @@ export default function ActivityForm({
         <TextField
           name="date"
           label="Date"
-          defaultValue={activity?.date}
           type="date"
+          defaultValue={
+            activity?.date
+              ? new Date(activity.date).toISOString().split('T')[0]
+              : new Date().toISOString().split('T')[0]
+          }
         />
         <TextField name="city" label="City" defaultValue={activity?.city} />
         <TextField name="venue" label="Venue" defaultValue={activity?.venue} />
@@ -61,7 +71,12 @@ export default function ActivityForm({
           <Button onClick={closeForm} color="inherit">
             Cancel
           </Button>
-          <Button type="submit" color="success" variant="contained">
+          <Button
+            type="submit"
+            color="success"
+            variant="contained"
+            loading={updateActivity.isPending || createActivity.isPending}
+          >
             Submit
           </Button>
         </Box>
