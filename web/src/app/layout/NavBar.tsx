@@ -9,6 +9,7 @@ import {
   MenuList,
 } from '@mui/material'
 import { NavLink } from 'react-router'
+import MenuItemLink from '../shared/components/MenuItemLink'
 
 export default function NavBar() {
   return (
@@ -30,30 +31,14 @@ export default function NavBar() {
             </MenuList>
 
             <MenuList disablePadding sx={{ display: 'flex' }}>
-              <MenuItem
-                component={NavLink}
-                to="/activities"
-                sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}
-              >
-                Activities
-              </MenuItem>
-              <MenuItem
-                sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}
-              >
+              <MenuItemLink to="/activities">Activities</MenuItemLink>
+              <MenuItem sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}>
                 About
               </MenuItem>
-              <MenuItem
-                sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}
-              >
+              <MenuItem sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}>
                 Contact
               </MenuItem>
-              <MenuItem
-                component={NavLink}
-                to="/createActivity"
-                sx={{ fontSize: '1.2rem', textTransform: 'uppercase' }}
-              >
-                Create activity
-              </MenuItem>
+              <MenuItemLink to="/createActivity">Create activity</MenuItemLink>
             </MenuList>
           </Toolbar>
         </Container>

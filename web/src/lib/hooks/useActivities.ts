@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import agent from '../api/agent'
 
-export const useActivities = () => {
+export const useActivities = (id?: string) => {
   const queryClient = useQueryClient()
 
   const { data: activities, isPending } = useQuery({
@@ -10,6 +10,15 @@ export const useActivities = () => {
       const response = await agent.get<Activity[]>('/events')
       return response.data
     },
+  })
+
+  const { data: activity, isLoading: isLoadingActivity } = useQuery({
+    queryKey: ['activities', id],
+    queryFn: async () => {
+      const response = await agent.get<Activity>(`/events/${id}`)
+      return response.data
+    },
+    enabled: !!id, // Solo se ejecuta si existe un id válido
   })
 
   const updateActivity = useMutation({
@@ -35,8 +44,8 @@ export const useActivities = () => {
   })
 
   const deleteActivity = useMutation({
-    mutationFn: async (id: string) => {
-      await agent.delete(`/events/${id}`)
+    mutationFn: async (stringId: string) => {
+      await agent.delete(`/events/${stringId}`)
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
@@ -45,5 +54,13 @@ export const useActivities = () => {
     },
   })
 
-  return { activities, isPending, updateActivity, createActivity, deleteActivity }
+  return {
+    activities,
+    isPending,
+    updateActivity,
+    createActivity,
+    deleteActivity,
+    activity,
+    isLoadingActivity,
+  }
 }
