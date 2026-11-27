@@ -39,6 +39,7 @@ export default function NavBar() {
                 Contact
               </MenuItem>
               <MenuItemLink to="/createActivity">Create activity</MenuItemLink>
+              <MenuItemLink to="/counter">Counter</MenuItemLink>
             </MenuList>
           </Toolbar>
         </Container>
